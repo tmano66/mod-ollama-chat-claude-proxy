@@ -39,7 +39,7 @@ from datetime import datetime, timezone
 # ---------------------------------------------------------------------------
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
-ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
+ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-haiku-4-5")
 ANTHROPIC_API_URL = os.environ.get("ANTHROPIC_API_URL", "https://api.anthropic.com/v1/messages")
 ANTHROPIC_MAX_TOKENS = int(os.environ.get("ANTHROPIC_MAX_TOKENS", "512"))
 PROXY_HOST = os.environ.get("PROXY_HOST", "0.0.0.0")
@@ -62,22 +62,17 @@ log = logging.getLogger("ollama-claude-proxy")
 # ---------------------------------------------------------------------------
 
 MODEL_MAP = {
-    # Friendly short names for mod-ollama-chat config
-    "claude-sonnet":                "claude-sonnet-4-20250514",
-    "claude-sonnet-4":              "claude-sonnet-4-20250514",
-    "claude-haiku":                 "claude-haiku-4-20250414",
-    "claude-haiku-4":               "claude-haiku-4-20250414",
-    "claude-opus":                  "claude-opus-4-20250514",
-    "claude-opus-4":                "claude-opus-4-20250514",
-    # Full model ID pass-through
-    "claude-sonnet-4-20250514":     "claude-sonnet-4-20250514",
-    "claude-haiku-4-20250414":      "claude-haiku-4-20250414",
-    "claude-opus-4-20250514":       "claude-opus-4-20250514",
-    # Older model names
-    "claude-3-5-sonnet":            "claude-3-5-sonnet-20241022",
-    "claude-3-5-haiku":             "claude-3-5-haiku-20241022",
-    "claude-3-5-sonnet-20241022":   "claude-3-5-sonnet-20241022",
-    "claude-3-5-haiku-20241022":    "claude-3-5-haiku-20241022",
+    # Friendly short names for mod-ollama-chat config -> current model IDs.
+    # (Updated 2026-07: the original repo mapped these to claude-*-4-2025* IDs
+    #  that retired on 2026-06-15 and now 404. Keep this table on live IDs.)
+    "claude-haiku":                 "claude-haiku-4-5",
+    "claude-haiku-4-5":             "claude-haiku-4-5",
+    "claude-sonnet":                "claude-sonnet-5",
+    "claude-sonnet-5":              "claude-sonnet-5",
+    "claude-sonnet-4-6":            "claude-sonnet-4-6",
+    "claude-opus":                  "claude-opus-4-8",
+    "claude-opus-4-8":              "claude-opus-4-8",
+    "claude-opus-4-7":              "claude-opus-4-7",
 }
 
 # Models advertised on /api/tags
@@ -86,7 +81,7 @@ AVAILABLE_MODELS = [
         "name": "claude-sonnet",
         "model": "claude-sonnet",
         "size": 0,
-        "digest": "claude-sonnet-4-20250514",
+        "digest": "claude-sonnet-5",
         "details": {
             "parent_model": "",
             "format": "api",
@@ -101,7 +96,7 @@ AVAILABLE_MODELS = [
         "name": "claude-haiku",
         "model": "claude-haiku",
         "size": 0,
-        "digest": "claude-haiku-4-20250414",
+        "digest": "claude-haiku-4-5",
         "details": {
             "parent_model": "",
             "format": "api",
@@ -116,7 +111,7 @@ AVAILABLE_MODELS = [
         "name": "claude-opus",
         "model": "claude-opus",
         "size": 0,
-        "digest": "claude-opus-4-20250514",
+        "digest": "claude-opus-4-8",
         "details": {
             "parent_model": "",
             "format": "api",
